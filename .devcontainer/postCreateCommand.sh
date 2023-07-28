@@ -12,7 +12,7 @@ echo "git config --global user.name \"Your Name\""
 echo "git config --global user.email \"Your Email\""
 echo "-----------------------------------------------"
 
-cp .env.local.example .env.local
+cp ../.env.local.example ../.env.local
 npm i
 
 echo "FINISH Install"
