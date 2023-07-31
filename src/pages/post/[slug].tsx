@@ -9,9 +9,9 @@ import { getClient } from '~/lib/sanity.client'
 import { urlForImage } from '~/lib/sanity.image'
 import {
   getPost,
+  getPostSlugs,
   Post,
   postBySlugQuery,
-  postSlugsQuery,
 } from '~/lib/sanity.queries'
 import type { SharedPageProps } from '~/pages/_app'
 import { formatDate } from '~/utils'
@@ -80,10 +80,10 @@ export default function ProjectSlugRoute(
 
 export const getStaticPaths = async () => {
   const client = getClient()
-  const slugs = await client.fetch(postSlugsQuery)
+  const slugs = await getPostSlugs(client)
 
   return {
-    paths: slugs?.map(({ slug }) => `/post/${slug}`) || [],
+    paths: slugs.map((slug) => `/post/${slug}`) || [],
     fallback: 'blocking',
   }
 }
