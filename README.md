@@ -6,4 +6,7 @@
 
 
 ## References
-https://www.sanity.io/schemas/website-meta-document-V3
+[Website Meta Document](https://www.sanity.io/schemas/website-meta-document-V3)
+
+
+[Markdown 変換処理【Next.js編】](https://zenn.dev/yoshiishunichi/articles/667120b3d0c9d2)

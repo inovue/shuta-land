@@ -11,7 +11,8 @@ export const postFieldsSchema = {
   slug: q.object({current:q.string(), _type:q.string()}),
   excerpt: q.string().optional(),
   mainImage: sanityImage("mainImage").nullable(),
-  body: q.contentBlocks()
+  body: q.contentBlocks(),
+  bio: q.string(),
 }
 
 

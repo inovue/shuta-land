@@ -15,6 +15,7 @@ import {
 } from '~/lib/sanity.queries'
 import type { SharedPageProps } from '~/pages/_app'
 import { formatDate } from '~/utils'
+import { markdownToHtml } from '~/lib/markdown-to-html'
 
 interface Query {
   [key: string]: string
@@ -28,6 +29,7 @@ export const getStaticProps: GetStaticProps<
 > = async ({ draftMode = false, params = {} }) => {
   const client = getClient(draftMode ? { token: readToken } : undefined)
   const post = await getPost(client, params.slug)
+  
 
   if (!post) {
     return {
@@ -39,7 +41,7 @@ export const getStaticProps: GetStaticProps<
     props: {
       draftMode,
       token: draftMode ? readToken : '',
-      post,
+      post: {...post, bio: await markdownToHtml(post.bio)},
     },
   }
 }
@@ -72,6 +74,7 @@ export default function ProjectSlugRoute(
           <div className="post__content">
             <PortableText value={post.body} />
           </div>
+          <div>{post.bio}</div>
         </div>
       </section>
     </Container>
