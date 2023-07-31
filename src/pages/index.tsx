@@ -16,7 +16,6 @@ export const getStaticProps: GetStaticProps<
 > = async ({ draftMode = false }) => {
   const client = getClient(draftMode ? { token: readToken } : undefined)
   const posts = await getPosts(client)
-
   return {
     props: {
       draftMode,

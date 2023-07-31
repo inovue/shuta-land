@@ -9,7 +9,7 @@ import { getClient } from '~/lib/sanity.client'
 import { urlForImage } from '~/lib/sanity.image'
 import {
   getPost,
-  type Post,
+  Post,
   postBySlugQuery,
   postSlugsQuery,
 } from '~/lib/sanity.queries'
@@ -47,8 +47,8 @@ export const getStaticProps: GetStaticProps<
 export default function ProjectSlugRoute(
   props: InferGetStaticPropsType<typeof getStaticProps>
 ) {
-  const [post] = useLiveQuery(props.post, postBySlugQuery, {
-    slug: props.post.slug.current,
+  const [post] = useLiveQuery(props.post, postBySlugQuery.query, {
+    slug: props.post.slug,
   })
 
   return (
