@@ -1,4 +1,5 @@
 import '~/styles/global.css'
+import 'easymde/dist/easymde.min.css'
 
 import type { AppProps } from 'next/app'
 import { IBM_Plex_Mono, Inter, PT_Serif } from "next/font/google"
