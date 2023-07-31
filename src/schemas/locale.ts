@@ -1,3 +1,5 @@
+import { defineField } from "sanity";
+
 const locales = [
   {
     title: "Japanese",
@@ -15,7 +17,7 @@ const displayModes =  [
   'standalone',
 ]
 
-const locale = {
+const locale = defineField({
   type: "string",
   name: "locale",
   title: "Language",
@@ -26,6 +28,6 @@ const locale = {
   },
   initialValue: locales[0].value,
   group: ['meta', 'og'],
-}
+})
 
 export default locale;

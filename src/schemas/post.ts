@@ -39,6 +39,11 @@ export default defineType({
       title: 'Body',
       type: 'blockContent',
     }),
+    defineField({
+      name: "bio",
+      type: "markdown",
+      description: "A Github flavored markdown field with image uploading",
+    }),
   ],
   preview: {
     select: {
