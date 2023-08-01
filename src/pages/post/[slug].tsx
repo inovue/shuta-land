@@ -58,26 +58,23 @@ export default function ProjectSlugRoute(
   return (
     <Container>
       <section className="post">
-        {post.mainImage ? (
-          <Image
-            className="post__cover"
-            src={urlForImage(post.mainImage).url()}
-            height={231}
-            width={367}
-            alt=""
-          />
-        ) : (
-          <div className="post__cover--none" />
-        )}
-        <div className="post__container">
-          <h1 className="post__title">{post.title}</h1>
-          <p className="post__excerpt">{post.excerpt}</p>
-          <p className="post__date">{formatDate(post._createdAt)}</p>
-          <div className="post__content">
-            <PortableText value={post.body} />
-          </div>
-          <div dangerouslySetInnerHTML={{ __html: post.bio }}></div>
+        <header className='flex flex-col'>
+          {post.mainImage ? (
+            <div className='relative w-full h-56'>
+              <Image src={urlForImage(post.mainImage).url()} className='object-cover' fill alt="" />
+            </div>
+          ) : (
+            <div className="post-cover-none" />
+          )}
+          <h1 className="text-6xl font-bold mb-4">{post.title}</h1>
+          <p className="text-xl mb-2">{post.excerpt}</p>
+          <p className="text-gray-500">{formatDate(post._createdAt)}</p>
+        </header>
+        <div className="prose px-4 sm:px-6 md:px-8 mx-auto mt-12 mb-6">
+          <PortableText value={post.body} />
         </div>
+        <article className="prose px-4 sm:px-6 md:px-8 mx-auto mt-12 mb-6" dangerouslySetInnerHTML={{ __html: post.bio }}></article>
+        
       </section>
     </Container>
   )

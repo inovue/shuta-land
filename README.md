@@ -10,3 +10,5 @@
 
 
 [Markdown 変換処理【Next.js編】](https://zenn.dev/yoshiishunichi/articles/667120b3d0c9d2)
+
+[Rehype Pretty Code を使って、美しきシンタックスハイライトを手に入れる](https://osgsm.io/posts/introducing-rehype-pretty-code)
