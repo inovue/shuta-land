@@ -1,9 +1,12 @@
+import 'katex/dist/katex.min.css'
+
 import { PortableText } from '@portabletext/react'
 import type { GetStaticProps, InferGetStaticPropsType } from 'next'
 import Image from 'next/image'
 import { useLiveQuery } from 'next-sanity/preview'
 
 import Container from '~/components/Container'
+import { markdownToHtml } from '~/lib/markdown-to-html'
 import { readToken } from '~/lib/sanity.api'
 import { getClient } from '~/lib/sanity.client'
 import { urlForImage } from '~/lib/sanity.image'
@@ -15,7 +18,6 @@ import {
 } from '~/lib/sanity.queries'
 import type { SharedPageProps } from '~/pages/_app'
 import { formatDate } from '~/utils'
-import { markdownToHtml } from '~/lib/markdown-to-html'
 
 interface Query {
   [key: string]: string
@@ -74,7 +76,7 @@ export default function ProjectSlugRoute(
           <div className="post__content">
             <PortableText value={post.body} />
           </div>
-          <div>{post.bio}</div>
+          <div dangerouslySetInnerHTML={{ __html: post.bio }}></div>
         </div>
       </section>
     </Container>
