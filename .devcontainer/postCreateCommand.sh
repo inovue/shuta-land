@@ -14,5 +14,6 @@ echo "-----------------------------------------------"
 
 cp .env.local.example .env.local
 npm i
+npx playwright install --with-deps chromium
 
 echo "FINISH Install"
