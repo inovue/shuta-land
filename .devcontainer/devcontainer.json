@@ -31,13 +31,13 @@
         }
       },
       "extensions": [
-		"GitHub.copilot",
-		"GitHub.copilot-chat",
-		"esbenp.prettier-vscode",
-		"ms-vscode.live-server",
-		"dbaeumer.vscode-eslint",
-		"bradlc.vscode-tailwindcss"
-	]
+        "GitHub.copilot",
+        "GitHub.copilot-chat",
+        "esbenp.prettier-vscode",
+        "ms-vscode.live-server",
+        "dbaeumer.vscode-eslint",
+        "bradlc.vscode-tailwindcss"
+      ]
     }
   }
 }

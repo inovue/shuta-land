@@ -57,25 +57,42 @@ export default function ProjectSlugRoute(
 
   return (
     <Container>
-      <section className="post">
-        <header className='flex flex-col'>
-          {post.mainImage ? (
-            <div className='relative w-full h-56'>
-              <Image src={urlForImage(post.mainImage).url()} className='object-cover' fill alt="" />
-            </div>
-          ) : (
-            <div className="post-cover-none" />
-          )}
-          <h1 className="text-6xl font-bold mb-4">{post.title}</h1>
-          <p className="text-xl mb-2">{post.excerpt}</p>
-          <p className="text-gray-500">{formatDate(post._createdAt)}</p>
-        </header>
-        <div className="prose px-4 sm:px-6 md:px-8 mx-auto mt-12 mb-6">
-          <PortableText value={post.body} />
-        </div>
-        <article className="prose px-4 sm:px-6 md:px-8 mx-auto mt-12 mb-6" dangerouslySetInnerHTML={{ __html: post.bio }}></article>
+      <div className='main-wrapper w-full max-w-[1280px] mx-auto flex gap-4 md:p-4'>
+        <main className='flex-1'>
+          <article className='bg-white border rounded-lg'>
+            <header className='article__header '>
+              <div className='article__header__cover-image-wrapepr ' style={{ position: 'relative', paddingTop: '40%' }}>
+                <Image 
+                  className='article__header__cover-image absolute inset-0 object-cover bg-gray-400 rounded-t-lg' 
+                  alt="Cover image for xxxxxxxxxxxxx" 
+                  src={post.mainImage ? urlForImage(post.mainImage).url() : ''} 
+                  fill 
+                  sizes="100vw" 
+                />
+              </div>
+              <div className='article__header__meta px-3 sm:px-6 md:px-12 lg:px-16 '>
+                <h1 className="text-5xl font-black mb-2">{post.title}</h1>
+                <div className='tags-wrapper'></div>
+                {post._createdAt && (
+                  <p className="created-at-wrapper text-gray-700">
+                    <time dateTime={post._createdAt} title={post._createdAt}> {formatDate(post._createdAt)} </time>
+                  </p>
+                )}
+              </div>
+            </header>
+            <div className='article__body prose max-w-full px-3 sm:px-6 md:px-12 lg:px-16 py-8' dangerouslySetInnerHTML={{ __html: post.bio }}></div>
+          </article>
+
+          {/*<div className="prose px-4 sm:px-6 md:px-8 mx-auto mt-12 mb-6"> <PortableText value={post.body} /> </div>*/}
+        </main>
+
+        <aside className='sidebar-right hidden md:block w-[30%]'>
+          <div className='bg-white'></div>
+        </aside>
         
-      </section>
+        
+      </div>
+      
     </Container>
   )
 }

@@ -2,17 +2,20 @@ import Link from 'next/link'
 
 export default function Container({ children }: { children: React.ReactNode }) {
   return (
-    <div className="container">
-      <header className="header">
-        <Link className="header__title" href="/">
-          Next.js + Sanity
-        </Link>
+    <>
+      <header className="header fixed bg-white top-0 left-0 right-0 z-10 shadow">
+        <div className="header__container h-[56px] px-4 max-w-[1280px] mx-auto flex items-center">
+          <Link className="header__title" href="/"> 
+            <p className='text-2xl font-black'>Next.js + Sanity</p>
+          </Link>
+        </div>
       </header>
-      <main>{children}</main>
+      <div className='page-content-wrapper w-full bg-slate-100 pt-[56px]'>{children}</div>
       <footer className="footer">
-        <p className="footer__text">
+        <p className="footer__text text-center py-6">
           Made with{' '}
           <svg
+            style={{ display: 'inline-block', verticalAlign: 'middle' }}
             datasanity-icon="heart-filled"
             width="1em"
             height="1em"
@@ -30,6 +33,6 @@ export default function Container({ children }: { children: React.ReactNode }) {
           at Sanity
         </p>
       </footer>
-    </div>
+    </>
   )
 }
