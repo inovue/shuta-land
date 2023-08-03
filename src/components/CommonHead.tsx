@@ -1,7 +1,7 @@
 export const Head = (props: {}) => {
   return (
     <>
-      <meta name="title" content="wownimal" />
+      <meta name="title" content="sanity + nextjs" />
       <meta name="description" content="this is desctiption"/>
       <meta name="keywords" content="e-commerce,web,development"/>
       <meta name="robots" content="index, follow"/>

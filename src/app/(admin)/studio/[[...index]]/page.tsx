@@ -1,8 +1,8 @@
-import Head from 'next/head'
-import { NextStudio } from 'next-sanity/studio'
-import { NextStudioHead } from 'next-sanity/studio/head'
-import { StudioLayout, StudioProvider } from 'sanity'
-import config from 'sanity.config'
+"use client";
+
+import { NextStudio } from "next-sanity/studio";
+import { StudioLayout, StudioProvider } from "sanity";
+import config from "sanity.config";
 import { createGlobalStyle } from 'styled-components'
 
 const GlobalStyle = createGlobalStyle(({ theme }) => ({
@@ -10,18 +10,13 @@ const GlobalStyle = createGlobalStyle(({ theme }) => ({
 }))
 
 export default function StudioPage() {
+  //  Supports the same props as `import {Studio} from 'sanity'`, `config` is required
   return (
-    <>
-      <Head>
-        <NextStudioHead favicons={false} />
-      </Head>
-
-      <NextStudio config={config}>
+    <NextStudio config={config}>
         <StudioProvider config={config}>
           <GlobalStyle />
           <StudioLayout />
         </StudioProvider>
       </NextStudio>
-    </>
-  )
+  );
 }

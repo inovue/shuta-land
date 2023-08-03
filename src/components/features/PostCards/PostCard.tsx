@@ -4,7 +4,7 @@ import { urlForImage } from '~/lib/sanity.image'
 import { type Post } from '~/lib/sanity.queries'
 import { formatDate } from '~/utils'
 
-export default function Card({ post }: { post: Post }) {
+export default function PostCard({ post }: { post: Post }) {
   return (
     <div className="card">
       {post.mainImage ? (
