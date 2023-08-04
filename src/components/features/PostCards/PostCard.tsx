@@ -20,7 +20,7 @@ export default function PostCard({ post }: { post: Post }) {
       )}
       <div className="card__container">
         <h3 className="card__title">
-          <a className="card__link" href={`/post/${post.slug.current}`}>
+          <a className="card__link" href={`/posts/${post.slug.current}`}>
             {post.title}
           </a>
         </h3>

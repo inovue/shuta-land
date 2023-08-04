@@ -8,10 +8,7 @@ export default function CustomStudioHead() {
   return (
     <>
       <NextStudioHead favicons={false} title="Sanity Studio" />
-      <link
-        rel="icon"
-        type="image/png"
-        sizes="32x32"
+      <link rel="icon" type="image/png" sizes="32x32"
         href="https://www.sanity.io/static/images/favicons/favicon-32x32.png"
       />
     </>

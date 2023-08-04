@@ -13,10 +13,10 @@ export default function StudioPage() {
   //  Supports the same props as `import {Studio} from 'sanity'`, `config` is required
   return (
     <NextStudio config={config}>
-        <StudioProvider config={config}>
-          <GlobalStyle />
-          <StudioLayout />
-        </StudioProvider>
-      </NextStudio>
+      <StudioProvider config={config}>
+        <GlobalStyle />
+        <StudioLayout />
+      </StudioProvider>
+    </NextStudio>
   );
 }

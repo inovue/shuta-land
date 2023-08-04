@@ -7,7 +7,7 @@ export default function RootLayout({
 }) {
   return (
     <html>
-      <head />
+      <head lang='jp' />
       <body>{children}</body>
     </html>
   );

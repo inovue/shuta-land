@@ -14,40 +14,30 @@ import {
 } from '~/lib/sanity.queries'
 
 
-export async function generateStaticParams(params: { slug: string }) {
-  const isPreview = draftMode().isEnabled
+export async function generateStaticParams() {
+  const isPreview = false //draftMode().isEnabled
   const client = getClient(isPreview ? {token: readToken} : undefined)
-  const post = await getPost(client, params.slug)
-  if (!post) throw new Error('Post not found');
-  
-  return {
-    isPreview, 
-    post: {...post, bio: await markdownToHtml(post.bio)}
-  }
+  const slugs = await getPostSlugs(client)
+
+  return slugs.map((slug) =>({slug}))
 }
 
 
-export default function PostPage({params}: {params: {isPreview:boolean, post:Post}}) {
-
+export default async function PostPage({params}: {params: {slug: string}}) {
+  const isPreview = draftMode().isEnabled
+  const client = getClient(isPreview ? {token: readToken} : undefined)
+  const post = await getPost(client, params.slug)
+  console.log('isPreview', isPreview)
+  //const post = (async (post)=>({...post, bio: await markdownToHtml(post.bio)}))(await getPost(client, params.slug))
+  
   return (
     <Container>
       <div className='main-wrapper w-full max-w-[1280px] mx-auto flex gap-4 md:p-4'>
-        <PostMain post={params.post} />
+        <PostMain post={post} />
         <aside className='sidebar-right hidden md:block w-[30%]'>
           <div className='bg-white'></div>
         </aside>
       </div>
     </Container>
   )
-}
-
-export const getStaticPaths = async () => {
-  const isPreview = draftMode().isEnabled
-  const client = getClient(isPreview && {token: readToken})
-  const slugs = await getPostSlugs(client)
-
-  return {
-    paths: slugs.map((slug) => `/post/${slug}`) || [],
-    fallback: 'blocking',
-  }
 }
