@@ -1,9 +1,21 @@
+import { draftMode } from 'next/headers'
 import Link from 'next/link'
 
 export default function Container({ children }: { children: React.ReactNode }) {
+  const isPreview = draftMode().isEnabled
+  
   return (
     <>
       <header className="header fixed bg-white top-0 left-0 right-0 z-10 shadow">
+        {isPreview && (
+          <div className='fixed bg-yellow-500 text-white text-lg top-0 left-0 right-0 z-20'>
+            <p className='text-center'>Preview mode. 
+              <Link href='/api/disable-draft'>
+                <span className='font-black cursor-pointer mx-2'>Click here</span>
+              </Link> to exit preview mode.
+            </p>
+          </div>
+        )}
         <div className="header__container h-[56px] px-4 max-w-[1280px] mx-auto flex items-center">
           <Link className="header__title" href="/"> 
             <p className='text-2xl font-black'>Next.js + Sanity</p>
