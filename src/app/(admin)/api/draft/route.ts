@@ -1,4 +1,3 @@
-import type { NextApiRequest, NextApiResponse } from 'next'
 import { draftMode } from 'next/headers'
 import {NextRequest, NextResponse} from 'next/server'
 
@@ -42,9 +41,9 @@ export async function GET(request: NextRequest) {
   }
 
   if (slug) {
-    draftMode().enable()
     //res.setPreviewData({ token: readToken })
-    return NextResponse.redirect(new URL(`/posts/${slug}`, request.nextUrl))
+    draftMode().enable()
+    return NextResponse.redirect(new URL(`/posts/${slug}`, request.url))
   }
 
   

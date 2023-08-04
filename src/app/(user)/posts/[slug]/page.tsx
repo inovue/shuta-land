@@ -4,6 +4,8 @@ import { draftMode } from 'next/headers'
 
 import Container from '~/components/Container'
 import PostMain from '~/components/features/PostMain/PostMain'
+import PostMainPreview from '~/components/features/PostMain/PostMainPreview'
+import PreviewProvider from '~/components/PreviewProvider'
 import { markdownToHtml } from '~/lib/markdown-to-html'
 import { readToken } from '~/lib/sanity.api'
 import { getClient } from '~/lib/sanity.client'
@@ -15,8 +17,7 @@ import {
 
 
 export async function generateStaticParams() {
-  const isPreview = false //draftMode().isEnabled
-  const client = getClient(isPreview ? {token: readToken} : undefined)
+  const client = getClient()
   const slugs = await getPostSlugs(client)
 
   return slugs.map((slug) =>({slug}))
@@ -24,16 +25,23 @@ export async function generateStaticParams() {
 
 
 export default async function PostPage({params}: {params: {slug: string}}) {
-  const isPreview = draftMode().isEnabled
-  const client = getClient(isPreview ? {token: readToken} : undefined)
+  const preview = draftMode().isEnabled ? {token: readToken} : undefined
+  console.log('preview', preview)
+
+  const client = getClient(preview)
   const post = await getPost(client, params.slug)
-  console.log('isPreview', isPreview)
   //const post = (async (post)=>({...post, bio: await markdownToHtml(post.bio)}))(await getPost(client, params.slug))
   
   return (
     <Container>
       <div className='main-wrapper w-full max-w-[1280px] mx-auto flex gap-4 md:p-4'>
-        <PostMain post={post} />
+        {preview ? (
+          <PreviewProvider token={preview.token}>
+            <PostMainPreview post={post} />
+          </PreviewProvider>
+        ):(
+          <PostMain post={post} />
+        )} 
         <aside className='sidebar-right hidden md:block w-[30%]'>
           <div className='bg-white'></div>
         </aside>
