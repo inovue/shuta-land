@@ -12,7 +12,11 @@ import { formatDate } from '~/utils'
 
 export default function PostMainPreview({ post:initialPost }: { post: Post }) {
   const [post, setPost] = useState<Post>(initialPost)
-  let [previewPost] = useLiveQuery<Post>(initialPost, postBySlugQuery.query, {slug: initialPost.slug.current})
+  let [previewPost] = useLiveQuery<Post>(
+    initialPost, 
+    postBySlugQuery.query, 
+    {slug: initialPost.slug.current}
+  )
   
   useEffect(()=>{
     (async () => {
