@@ -2,15 +2,25 @@
 
 import Image from 'next/image'
 import { useLiveQuery } from 'next-sanity/preview'
+import { useEffect, useState } from 'react'
 
+import { markdownToHtml } from '~/lib/markdown-to-html'
 import { urlForImage } from '~/lib/sanity.image'
 import { type Post } from '~/lib/sanity.queries'
 import { postBySlugQuery } from '~/lib/sanity.queries'
 import { formatDate } from '~/utils'
 
-export default function PostMain({ post:initialPost }: { post: Post }) {
-
-  const [post] = useLiveQuery<Post>(initialPost, postBySlugQuery.query, {slug: initialPost.slug.current})
+export default function PostMainPreview({ post:initialPost }: { post: Post }) {
+  const [post, setPost] = useState<Post>(initialPost)
+  let [previewPost] = useLiveQuery<Post>(initialPost, postBySlugQuery.query, {slug: initialPost.slug.current})
+  
+  useEffect(()=>{
+    (async () => {
+      console.log('previewPost', previewPost._id)
+      let bio = await markdownToHtml(previewPost.bio)
+      setPost({...previewPost, bio})
+    })();
+  } , [previewPost]);
 
   return (
     <main className='flex-1'>

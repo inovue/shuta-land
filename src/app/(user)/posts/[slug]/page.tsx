@@ -29,7 +29,8 @@ export default async function PostPage({params}: {params: {slug: string}}) {
   console.log('preview', preview)
 
   const client = getClient(preview)
-  const post = await getPost(client, params.slug)
+  let post = await getPost(client, params.slug)
+  post.bio = await markdownToHtml(post.bio)
   //const post = (async (post)=>({...post, bio: await markdownToHtml(post.bio)}))(await getPost(client, params.slug))
   
   return (
