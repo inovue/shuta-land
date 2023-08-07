@@ -1,27 +1,23 @@
-import type { NextApiRequest, NextApiResponse } from 'next'
+import { draftMode } from 'next/headers'
+import {NextRequest, NextResponse} from 'next/server'
 
 import { previewSecretId, readToken } from '~/lib/sanity.api'
 import { getClient } from '~/lib/sanity.client'
 import { getPreviewSecret } from '~/utils/previewSecret'
 
-export default async function preview(
-  req: NextApiRequest,
-  res: NextApiResponse<string | void>
-) {
+export async function GET(request: NextRequest) {
+  
   if (!readToken) {
-    res.status(500).send('Misconfigured server')
-    return
+    return NextResponse.json({ error: 'Misconfigured server' }, { status: 500 })
   }
 
-  const { query } = req
+  const params = request.nextUrl.searchParams
 
-  const secret = typeof query.secret === 'string' ? query.secret : undefined
-  const slug = typeof query.slug === 'string' ? query.slug : undefined
+  const secret = params.get('secret')
+  const slug = params.get('slug')
 
   if (!secret) {
-    res.status(401)
-    res.send('Invalid secret')
-    return
+    return NextResponse.json({ error: 'secret not found' }, { status: 401 })
   }
 
   const authClient = getClient({ token: readToken }).withConfig({
@@ -41,16 +37,15 @@ export default async function preview(
   // This is the most common way to check for auth, but we encourage you to use your existing auth
   // infra to protect your token and securely transmit it to the client
   if (secret !== storedSecret) {
-    return res.status(401).send('Invalid secret')
+    return NextResponse.json({ error: 'Invalid secret' }, { status: 401 })
   }
 
   if (slug) {
-    res.setPreviewData({ token: readToken })
-    res.writeHead(307, { Location: `/post/${slug}` })
-    res.end()
-    return
+    //res.setPreviewData({ token: readToken })
+    draftMode().enable()
+    return NextResponse.redirect(new URL(`/posts/${slug}`, request.url))
   }
 
-  res.status(404).send('Slug query parameter is required')
-  res.end()
+  
+  return NextResponse.json({ error: 'Slug query parameter is required' }, { status: 404 })
 }
