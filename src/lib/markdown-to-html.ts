@@ -21,7 +21,7 @@ export const markdownToHtml = async (markdownContent: string) => {
     .use(remarkRehype)
     
     .use(rehypeKatex)
-    .use(rehypeMermaid)
+    //.use(rehypeMermaid)
     .use(rehypePrettyCode)
 
     .use(rehypeStringify)
